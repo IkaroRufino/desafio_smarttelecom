@@ -18,7 +18,7 @@ Para rodar este projeto, você precisa ter os seguintes itens instalados no seu 
 
 Este projeto **não foi finalizado** e será **refeito no mês de julho** com o objetivo de prover portfólio para o autor do programa. 
 
-Agradeço comentários sobre os erros cometidos neste código.
+Agradeço comentários sobre os erros cometidos neste código: ikarogust32@gmail.com
 
 ---
 
