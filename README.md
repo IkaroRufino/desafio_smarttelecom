@@ -4,13 +4,15 @@ Esse é um site para o desafio de estágio da SmarTelecom e deixo nessa branch a
 
 ## Como usar
 
-Para utilizar o projeto, basta seguir as instruções abaixo:
+Para rodar este projeto, você precisa ter os seguintes itens instalados no seu sistema:
 
-1. Baixar o **Framework Laravel**.
-2. Instalar o **Composer**.
-3. Instalar o **Jetstream Laravel Teams**.
-4. Instalar e configurar as **Dependencias** dos itens supracitados. 
-5. Configurar o **MySQL** para implementar as migrations.
+- PHP (versão compatível com o Laravel)
+- Composer
+- Node.js e NPM
+- MySQL para armazenar as migrations
+- Laravel e suas dependências instaladas via Composer
+- Jetstream (com suporte a Teams) e suas dependências
+- Dependências front-end instaladas e compiladas
 
 ## Observações
 
