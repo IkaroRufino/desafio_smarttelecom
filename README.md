@@ -1,6 +1,6 @@
-# Desafio de Estágio SmarTelecom
+# Desafio de Estágio SmartTelecom
 
-Esse é um site para o desafio de estágio da SmarTelecom e deixo nessa branch as últimas alterações antes do envio.
+Esse é um site para o desafio de estágio da SmartTelecom e deixo nessa branch as últimas alterações antes do envio.
 
 ## Como usar
 
