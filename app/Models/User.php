@@ -31,6 +31,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'cpf',
+        'telefone',
+        'cargo',
     ];
 
     /**
@@ -66,4 +69,33 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
+
+    public function teamsWithRoles()
+    {
+        return $this->belongsToMany(Team::class)->withPivot('role')->withTimestamps()->using(Membership::class);
+    }
+
+    public function allPlans()
+    {
+        return $this->hasManyThrough(Plan::class, Team::class, 'user_id', 'team_id');
+    }
+
+    public function getRoleOnCurrentTeamAttribute()
+    {
+        $team = $this->currentTeam;
+        if (! $team) {
+            return null;
+        }
+
+        // Busca o relacionamento com pivot carregado
+        $pivot = $team->users->find($this->id)?->pivot;
+
+        return $pivot->role ?? null;
+    }
+
 }

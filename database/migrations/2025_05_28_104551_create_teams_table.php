@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->index();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->boolean('personal_team')->default(false);
             $table->string('name');
-            $table->boolean('personal_team');
+            $table->string('cnpj');
+            $table->string('site')->nullable();
+            $table->string('telefone_comercial')->nullable();
+            $table->json('endereco_matriz')->nullable();
             $table->timestamps();
         });
     }

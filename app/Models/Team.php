@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
@@ -10,23 +13,22 @@ use Laravel\Jetstream\Team as JetstreamTeam;
 
 class Team extends JetstreamTeam
 {
-    /** @use HasFactory<\Database\Factories\TeamFactory> */
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * Atributos que podem ser atribuídos em massa.
      */
     protected $fillable = [
+        'user_id',               // Dono do time
         'name',
-        'personal_team',
+        'cnpj',
+        'site',
+        'telefone_comercial',
+        'endereco_matriz',
     ];
 
     /**
-     * The event map for the model.
-     *
-     * @var array<string, class-string>
+     * Eventos do Jetstream.
      */
     protected $dispatchesEvents = [
         'created' => TeamCreated::class,
@@ -35,14 +37,49 @@ class Team extends JetstreamTeam
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Conversões de tipo.
      */
     protected function casts(): array
     {
         return [
             'personal_team' => 'boolean',
+            'endereco_matriz' => 'array', // Para acessar como array no código
         ];
     }
+
+    /**
+     * Dono do time.
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Membros do time.
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class)
+                    ->withPivot('role')
+                    ->withTimestamps();
+    }
+
+    public function plans()
+    {
+        return $this->hasMany(Plan::class);
+    }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
+
+    public function teamsWithRoles()
+    {
+        return $this->belongsToMany(Team::class)
+                    ->withPivot('role')
+                    ->withTimestamps();
+    }
+
 }
